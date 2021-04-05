@@ -1,16 +1,14 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable no-plusplus */
 /* eslint-disable import/prefer-default-export */
+/* eslint-disable no-plusplus */
 /* eslint-disable prettier/prettier */
-
 export function seedDatabase(firebase) {
-  // eslint-disable-next-line prettier/prettier
   const users = [
     {
-      userId: 'US733w8DgGWGFlaJaXy5rBQDq3b2',
-      username: 'Moduloscript',
-      fullName: 'madu emeka kingsely',
-      emailAddress: 'Maduemeka254@gmail.com',
+      userId: 'iYwkLTnx0jd8SIwG0LO9HvKF5nY2',
+      username: 'karl',
+      fullName: 'Karl Hadwen',
+      emailAddress: 'karlhadwen@gmail.com',
       following: ['2'],
       followers: ['2', '3', '4'],
       dateCreated: Date.now()
@@ -21,7 +19,7 @@ export function seedDatabase(firebase) {
       fullName: 'Raffaello Sanzio da Urbino',
       emailAddress: 'raphael@sanzio.com',
       following: [],
-      followers: ['US733w8DgGWGFlaJaXy5rBQDq3b2'],
+      followers: ['iYwkLTnx0jd8SIwG0LO9HvKF5nY2'],
       dateCreated: Date.now()
     },
     {
@@ -30,7 +28,7 @@ export function seedDatabase(firebase) {
       fullName: 'Salvador Dalí',
       emailAddress: 'salvador@dali.com',
       following: [],
-      followers: ['NvPY9M9MzFTARQ6M816YAzDJxZ72'],
+      followers: ['iYwkLTnx0jd8SIwG0LO9HvKF5nY2'],
       dateCreated: Date.now()
     },
     {
@@ -39,7 +37,7 @@ export function seedDatabase(firebase) {
       fullName: 'George Orwell',
       emailAddress: 'george@orwell.com',
       following: [],
-      followers: ['NvPY9M9MzFTARQ6M816YAzDJxZ72'],
+      followers: ['iYwkLTnx0jd8SIwG0LO9HvKF5nY2'],
       dateCreated: Date.now()
     }
   ];
