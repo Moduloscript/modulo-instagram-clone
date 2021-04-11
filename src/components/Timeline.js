@@ -10,7 +10,6 @@ export default function Timeline() {
   const { photos } = usePhotos();
 
 
-  console.log('photos', photos)
   
 
   return (

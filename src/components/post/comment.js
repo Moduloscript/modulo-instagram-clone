@@ -15,7 +15,7 @@ export default function Comments({docId, comments: allComments, posted, commentI
                 {comments.length >= 1 && (
                     <p className='mb-1 text-sm cursor-pointer text-gray-base '>
 
-                        View all {comments.length } comments 
+                        View all comments 
                     </p>
                     
                 )}

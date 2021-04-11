@@ -21,7 +21,7 @@ export default function usePhotos(user) {
         if (following.length > 0) {
           followedUserPhotos = await getPhotos(userId, following);
         }
-        // Render photos in Ascending to descending Order
+        // Render photos in Ascending to descending Order 
         followedUserPhotos.sort((a, b) => b.dateCreated - a.dateCreated);
         setPhotos(followedUserPhotos);
       }

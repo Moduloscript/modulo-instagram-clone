@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { useEffect, useContext, useState } from 'react'
+import {useContext, useState } from 'react'
 import PropTypes from 'prop-types';
 import FirebaseContext from '../../context/firebase'
 import UserContext from '../../context/user';
