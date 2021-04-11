@@ -147,3 +147,19 @@ export async function isUserFollowingProfile(loggedInUserUsername, profileUserId
  
   return response.userId;
 }
+
+
+export async function toggleFollow(
+  isFollowingProfile,
+  activeUserDocId,
+  profileDocId,
+  profileUserId,
+  followingUserId
+){
+  await updatedLoggedInUserFollowing(activeUserDocId, profileUserId, isFollowingProfile);
+
+  // 1st param: karl's user id
+  // 2nd param: raphael's doc id
+  // 3rd param: is the user following this profile? e.g. does karl follow raphael? (true/false)
+  await updateFollowerUserFollowers(profileDocId, followingUserId, isFollowingProfile);
+}

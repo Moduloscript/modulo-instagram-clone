@@ -1,11 +1,13 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable prettier/prettier */
-import { useState, useEffect } from 'react';
+/* eslint-disable jsx-a11y/img-redundant-alt */
+import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import useUser from '../../hooks/use-user';
-import { isUserFollowingProfile } from '../../services/firebase';
+import { isUserFollowingProfile, toggleFollow } from '../../services/firebase';
+import UserContext from '../../context/user';
 
 export default function Header({
   photosCount,
@@ -15,44 +17,53 @@ export default function Header({
     docId: profileDocId,
     userId: profileUserId,
     fullName,
-    followers = [],
-    following = [],
+    followers,
+    following,
     username: profileUsername
   }
 }) {
-  const { user } = useUser();
+  const { user: loggedInUser } = useContext(UserContext);
+  const { user } = useUser(loggedInUser?.uid);
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
-  const activeBtnFollow = user.username && user.username !== profileUsername;
+  const activeBtnFollow = user?.username && user?.username !== profileUsername;
 
-  const handleToggleFollow = () => {
+  const handleToggleFollow = async () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
     setFollowerCount({
       followerCount: isFollowingProfile ? followerCount - 1 : followerCount + 1
     });
+    await toggleFollow(isFollowingProfile, user.docId, profileDocId, profileUserId, user.userId);
   };
 
   useEffect(() => {
-    const isloggedInUserFollowingProfile = async () => {
+    const isLoggedInUserFollowingProfile = async () => {
       const isFollowing = await isUserFollowingProfile(user.username, profileUserId);
       setIsFollowingProfile(!!isFollowing);
     };
 
-    if (user.username && profileUserId) {
-      isloggedInUserFollowingProfile();
+    if (user?.username && profileUserId) {
+      isLoggedInUserFollowingProfile();
     }
-  }, [user.username, profileUserId]);
+  }, [user?.username, profileUserId]);
+
   return (
     <div className="grid justify-between max-w-screen-lg grid-cols-3 gap-4 mx-auto">
       <div className="container flex items-center justify-center">
-        {user.username && (
+        {profileUsername ? (
           <img
             className="flex w-40 h-40 rounded-full"
-            alt={`${user.username} profile picture`}
+            alt={`${fullName} profile picture`}
             src={`/images/avatars/${profileUsername}.jpg`}
+          />
+        ) : (
+          <img
+            className="flex w-40 h-40 rounded-full"
+            alt={"Karl Hadwen's profile picture"}
+            src="/images/avatars/karl.jpg"
           />
         )}
       </div>
-      <div className="flex-col justify-center col-span-2 item-center ">
+      <div className="flex flex-col items-center justify-center col-span-2">
         <div className="container flex items-center">
           <p className="mr-4 text-2xl">{profileUsername}</p>
           {activeBtnFollow && (
@@ -105,8 +116,8 @@ Header.propTypes = {
     docId: PropTypes.string,
     userId: PropTypes.string,
     fullName: PropTypes.string,
-    following: PropTypes.array,
+    username: PropTypes.string,
     followers: PropTypes.array,
-    username: PropTypes.string
+    following: PropTypes.array
   }).isRequired
 };
